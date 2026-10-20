@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thiệp Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #d6336c;
+      --primary-light: #fff0f5;
+      --primary-dark: #a61e4d;
+      --gold: #d4af37;
+      --gold-dark: #aa8c2c;
+      --text-main: #491217;
+      --text-sub: #7a3e45;
+      --paper: #fffaf7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 20%, #ffe0e6 0%, #f7aab5 60%, #e88698 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+      position: relative;
+      color: var(--text-main);
+      padding: 16px;
+    }
+
+    #petals-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .app-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 580px;
+      perspective: 1200px;
+    }
+
+    .music-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid var(--gold);
+      color: var(--primary-dark);
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(166, 30, 77, 0.15);
+      transition: all 0.3s ease;
+    }
+    .music-btn:hover {
+      transform: scale(1.05);
+      background: #fff;
+    }
+
+    .card-panel {
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-radius: 26px;
+      padding: 32px 26px;
+      box-shadow: 0 16px 45px rgba(166, 30, 77, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.7);
+      text-align: center;
+      position: relative;
+    }
+
+    .panel-floral-header {
+      font-size: 26px;
+      margin-bottom: 6px;
+      letter-spacing: 4px;
+    }
+
+    .badge-2010 {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 10px rgba(214, 51, 108, 0.3);
+    }
+
+    .main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 22px;
+    }
+
+    .step-label {
+      text-align: left;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .role-btn {
+      background: #fff;
+      border: 1.5px solid #f3c2cd;
+      border-radius: 14px;
+      padding: 10px 6px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .role-btn .role-icon {
+      font-size: 20px;
+    }
+
+    .role-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .role-btn.active {
+      background: linear-gradient(135deg, #ff758c, var(--primary));
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 6px 14px rgba(214, 51, 108, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .name-input-box {
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .name-input {
+      width: 100%;
+      padding: 14px 18px;
+      padding-left: 44px;
+      border-radius: 14px;
+      border: 1.5px solid #f0bac5;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      outline: none;
+      background: #fff;
+      transition: all 0.3s;
+    }
+
+    .name-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(214, 51, 108, 0.15);
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #ff6b8b, var(--primary-dark));
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(166, 30, 77, 0.3);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(166, 30, 77, 0.4);
+    }
+
+    .envelope-screen {
+      display: none;
+      text-align: center;
+    }
+
+    .envelope-box {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      background: linear-gradient(145deg, #f8c9d2, #f5b0bd);
+      margin: 40px auto 30px;
+      border-radius: 12px;
+      box-shadow: 0 20px 45px rgba(166, 30, 77, 0.25);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .envelope-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 120px solid #ee9ca7;
+      transform-origin: top;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 5;
+    }
+
+    .envelope-flap.open {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .envelope-pocket {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 160px solid #f6b5c3;
+      border-right: 160px solid #f6b5c3;
+      border-bottom: 120px solid #f198aa;
+      border-radius: 0 0 12px 12px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .wax-seal {
+      position: absolute;
+      top: 85px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #e03131, #8f1212);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffd700;
+      font-size: 26px;
+      border: 2px dashed rgba(255, 215, 0, 0.7);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
+      z-index: 6;
+      transition: transform 0.3s;
+    }
+
+    .envelope-box:hover .wax-seal {
+      transform: translateX(-50%) scale(1.1);
+    }
+
+    .hint-tap {
+      font-size: 14px;
+      color: #fff;
+      font-weight: 700;
+      text-shadow: 0 2px 5px rgba(166, 30, 77, 0.5);
+      animation: pulse 1.6s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.85; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .greeting-card {
+      display: none;
+      background: var(--paper);
+      border-radius: 24px;
+      padding: 36px 28px 30px;
+      border: 2px solid #f3cbd5;
+      box-shadow: 0 20px 50px rgba(166, 30, 77, 0.25), inset 0 0 80px rgba(255, 230, 240, 0.7);
+      position: relative;
+      text-align: center;
+      animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideUpFade {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .corner-flower {
+      position: absolute;
+      font-size: 24px;
+      user-select: none;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+    .cf-top-left { top: 10px; left: 12px; }
+    .cf-top-right { top: 10px; right: 12px; }
+    .cf-bottom-left { bottom: 10px; left: 12px; }
+    .cf-bottom-right { bottom: 10px; right: 12px; }
+
+    .garland-top {
+      font-size: 28px;
+      letter-spacing: 5px;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 2px 4px rgba(214, 51, 108, 0.2));
+    }
+
+    .card-for {
+      font-family: 'Dancing Script', cursive;
+      font-size: 24px;
+      color: var(--gold-dark);
+      margin-bottom: 2px;
+    }
+
+    .card-recipient-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 14px;
+      text-transform: capitalize;
+    }
+
+    .decorative-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 12px 0 18px;
+    }
+    .divider-line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold));
+    }
+    .divider-line.right {
+      background: linear-gradient(to left, transparent, var(--gold));
+    }
+    .divider-icon {
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .wish-content-box {
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 18px;
+      padding: 22px 20px;
+      border: 1.5px dashed #f1a9b9;
+      margin-bottom: 20px;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(214, 51, 108, 0.05);
+    }
+
+    .wish-text {
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: #3b171c;
+      font-style: italic;
+      white-space: pre-line;
+      text-align: justify;
+      transition: opacity 0.3s ease;
+    }
+
+    .sender-signature {
+      margin-top: 16px;
+      text-align: right;
+      font-family: 'Dancing Script', cursive;
+      font-size: 22px;
+      color: var(--primary-dark);
+    }
+
+    .garland-bottom {
+      font-size: 20px;
+      letter-spacing: 6px;
+      margin-bottom: 18px;
+      opacity: 0.85;
+    }
+
+    .action-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      background: #fff;
+      border: 1.5px solid var(--primary);
+      color: var(--primary-dark);
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(45, 14, 21, 0.92);
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      z-index: 999;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    @media (max-width: 480px) {
+      .card-panel { padding: 24px 18px; }
+      .roles-grid { gap: 8px; }
+      .role-btn { padding: 8px 4px; font-size: 13px; }
+      .role-btn .role-icon { font-size: 18px; }
+      .main-title { font-size: 22px; }
+      .envelope-box { width: 280px; height: 190px; }
+      .envelope-flap { border-left-width: 140px; border-right-width: 140px; border-top-width: 100px; }
+      .envelope-pocket { border-left-width: 140px; border-right-width: 140px; border-bottom-width: 100px; }
+      .wax-seal { top: 70px; width: 50px; height: 50px; font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nút Bật/Tắt nhạc nền -->
+  <button class="music-btn" id="musicToggleBtn" type="button">
+    <span id="musicIcon">🎵</span>
+    <span id="musicText">Bật nhạc</span>
+  </button>
+
+  <canvas id="petals-canvas"></canvas>
+
+  <div class="app-container">
+
+    <!-- MÀN HÌNH 1 -->
+    <div class="card-panel" id="setupScreen">
+      <div class="panel-floral-header">🌸 🌺 💐 🌷 🌸</div>
+      <div class="badge-2010">20 THÁNG 10</div>
+      <h1 class="main-title">Gửi Thiệp Chúc Mừng</h1>
+      <p class="subtitle">Dành trọn ngàn đóa hoa trao gửi người phụ nữ yêu thương</p>
+
+      <div class="step-label">
+        <span>🌸</span> 1. Chọn chức danh / vai vế:
+      </div>
+      <div class="roles-grid" id="rolesGrid">
+        <button type="button" class="role-btn" data-role="Bà"><span class="role-icon">👵</span> Bà</button>
+        <button type="button" class="role-btn active" data-role="Mẹ"><span class="role-icon">👩‍👦</span> Mẹ</button>
+        <button type="button" class="role-btn" data-role="Bác"><span class="role-icon">🌸</span> Bác</button>
+        <button type="button" class="role-btn" data-role="Cô"><span class="role-icon">💐</span> Cô</button>
+        <button type="button" class="role-btn" data-role="Dì"><span class="role-icon">🌷</span> Dì</button>
+        <button type="button" class="role-btn" data-role="Mợ"><span class="role-icon">🌺</span> Mợ</button>
+        <button type="button" class="role-btn" data-role="Chị"><span class="role-icon">👒</span> Chị</button>
+        <button type="button" class="role-btn" data-role="Em"><span class="role-icon">🎀</span> Em</button>
+        <button type="button" class="role-btn" data-role="Bạn"><span class="role-icon">👭</span> Bạn</button>
+      </div>
+
+      <div class="step-label">
+        <span>✍️</span> 2. Nhập tên của <span id="currentRoleLabel" style="color:var(--primary); font-size:14px;">Mẹ</span>:
+      </div>
+      <div class="name-input-box">
+        <div class="input-wrapper">
+          <span class="input-icon">❤️</span>
+          <input type="text" class="name-input" id="recipientName" placeholder="Nhập tên của Mẹ" maxlength="30">
+        </div>
+      </div>
+
+      <button class="submit-btn" id="startBtn" type="button">
+        <span>Mở phong thư ngát hương hoa</span> 🌹
+      </button>
+    </div>
+
+    <!-- MÀN HÌNH 2 -->
+    <div class="envelope-screen" id="envelopeScreen">
+      <div class="envelope-box" id="envelopeBox">
+        <div class="envelope-flap" id="envelopeFlap"></div>
+        <div class="envelope-pocket"></div>
+        <div class="wax-seal">🌹</div>
+      </div>
+      <div class="hint-tap">✨ Chạm vào phong bì để mở thư ✨</div>
+    </div>
+
+    <!-- MÀN HÌNH 3 -->
+    <div class="greeting-card" id="greetingCard">
+      <div class="corner-flower cf-top-left">🌸</div>
+      <div class="corner-flower cf-top-right">🌸</div>
+      <div class="corner-flower cf-bottom-left">🌺</div>
+      <div class="corner-flower cf-bottom-right">🌺</div>
+
+      <div class="garland-top">💐 🌹 🌷 🌺 🌸</div>
+
+      <div class="card-for" id="cardRoleText">Chúc Mẹ</div>
+      <div class="card-recipient-name" id="cardNameText">Mẹ</div>
+
+      <div class="decorative-divider">
+        <div class="divider-line"></div>
+        <span class="divider-icon">~ 20.10 ~ </span>
+        <div class="divider-line right"></div>
+      </div>
+
+      <div class="wish-content-box">
+        <p class="wish-text" id="wishTextContent">Đang tải lời chúc...</p>
+        <div class="sender-signature" id="signatureText">20/10 vui vẻ</div>
+      </div>
+      <div class="garland-bottom">🌸 🌷 🌼 🌷 🌸</div>
+
+      <div class="action-group">
+        <button type="button" class="btn-secondary" id="nextWishBtn">
+          <span>🔀</span> Đổi lời chúc khác
+        </button>
+        <button type="button" class="btn-secondary" id="copyBtn">
+          <span>📋</span> Sao chép lời chúc
+        </button>
+        <button type="button" class="btn-secondary" id="resetBtn">
+          <span>🔄</span> Chọn người khác
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast">Đã sao chép lời chúc vào khay nhớ tạm!</div>
+
+  <script>
+    // ============ 1. KHO LỜI CHÚC ============
+    const WISH_DATA = {
+      "Bà": [
+        "Nhân ngày Phụ Nữ Việt Nam 20/10, chúng con kính chúc Bà luôn luôn dồi dào sức khỏe, trường thọ an vui bên con cháu.\n\nCảm ơn nụ cười hiền hậu và tình yêu thương bao la Bà đã dành cho chúng con suốt bao năm tháng. Mong Bà mỗi ngày trôi qua đều ngập tràn niềm vui, thanh thản và bình an!",
+        "Kính chúc Bà kính yêu một ngày 20/10 thật nhiều sức khỏe và niềm vui trọn vẹn!\n\nChúng con chỉ ước mong Bà luôn khỏe mạnh, sống lâu trăm tuổi cùng con cháu, nụ cười phúc hậu luôn rạng rỡ trên môi. Bà chính là điểm tựa bình yên và là bóng mát chở che cho cả gia đình!",
+        "Chúc Bà của chúng con ngày 20/10 thật ấm áp và hạnh phúc!\n\nCon kính chúc Bà bách niên giai lão, luôn luôn minh mẫn, an yên, không có muộn phiền. Cả nhà ai cũng yêu quý và kính trọng Bà thật nhiều!"
+      ],
+      "Mẹ": [
+        "Nhân ngày 20/10, con xin gửi tới Mẹ ngàn đóa hoa và lòng biết ơn sâu sắc nhất!\n\nCảm ơn Mẹ đã luôn hy sinh thầm lặng, tảo tần chăm lo cho con từng bữa ăn giấc ngủ. Con chỉ mong Mẹ luôn dồi dào sức khỏe, tươi trẻ, bình an và thanh thản trong tâm hồn. Mẹ mãi là bông hoa rực rỡ nhất trong lòng con!",
+        "Chúc Mẹ yêu quý một ngày 20/10 ngập tràn nụ cười và hạnh phúc!\n\nBao năm tháng qua Mẹ đã vất vả vì chúng con quá nhiều rồi. Hôm nay, Mẹ hãy gác lại mọi âu lo để tận hưởng một ngày ngập tràn sắc hoa và yêu thương nhé. Chúc Mẹ luôn trẻ mãi không già và mãi bên chúng con!",
+        "Gửi Mẹ kính yêu của con,\nKhông có từ ngữ nào tả xiết công ơn sinh thành và dưỡng dục của Mẹ. Nhân ngày 20/10, con kính chúc Mẹ luôn tràn đầy niềm vui, sức khỏe dồi dào, vạn sự như ý. Con yêu Mẹ nhiều lắm!"
+      ],
+      "Bác": [
+        "Nhân ngày Phụ Nữ Việt Nam 20/10, cháu kính chúc Bác luôn luôn mạnh khỏe, trẻ trung, hạnh phúc và vạn sự như ý!\n\nCảm ơn Bác vì luôn là người phụ nữ đảm đang, ấm áp và luôn quan tâm đến cả gia đình. Chúc Bác có một ngày 20/10 thật nhiều hoa, nhiều quà và ngập tràn tiếng cười!",
+        "Kính chúc Bác ngày 20/10 thật rực rỡ và an vui bên gia đình!\n\nChúc Bác dồi dào sức khỏe, tâm hồn luôn thư thái, công việc thuận lợi và gia đạo luôn êm ấm, thuận hòa!"
+      ],
+      "Cô": [
+        "Nhân ngày 20/10, cháu chúc Cô luôn luôn xinh đẹp, trẻ trung, rạng ngời và tràn đầy năng lượng tích cực!\n\nChúc Cô gặt hái được thật nhiều thành công trong công việc, luôn được yêu thương và có một ngày lễ 20/10 thật vui tươi, hạnh phúc!",
+        "Chúc Cô ngày Phụ Nữ Việt Nam 20/10 ngập tràn niềm vui!\n\nChúc Cô mãi tươi trẻ như tuổi đôi mươi, duyên dáng, đáng yêu và gặp thật nhiều may mắn trong cuộc sống. Cảm ơn Cô vì luôn dành tình cảm ấm áp cho chúng cháu!"
+      ],
+      "Dì": [
+        "Nhân ngày 20/10, cháu chúc Dì luôn luôn vui vẻ, tươi trẻ, xinh đẹp và hạnh phúc viên mãn!\n\nCảm ơn Dì vì sự dịu dàng, chu đáo và thân thiện. Chúc Dì hôm nay nhận được thật nhiều hoa, nhiều quà và vạn sự cát tường!",
+        "Chúc Dì yêu quý có một ngày 20/10 thật rực rỡ và ý nghĩa!\n\nChúc Dì mãi giữ được nét duyên dáng, tươi vui, công việc thuận buồm xuôi gió và gia đình luôn tràn ngập tiếng cười hạnh phúc!"
+      ],
+      "Mợ": [
+        "Nhân ngày 20/10, cháu xin gửi lời chúc tốt đẹp nhất đến Mợ!\n\nChúc Mợ luôn xinh tươi, trẻ trung, gia đình luôn hòa thuận sung túc và mọi dự định đều thành công rực rỡ. Chúc Mợ có một ngày lễ ngập tràn sắc hoa và niềm vui!",
+        "Kính chúc Mợ ngày Phụ Nữ Việt Nam 20/10 thật ấm áp và hạnh phúc!\n\nCảm ơn Mợ vì luôn đảm đang và vun vén chu toàn cho gia đình. Chúc Mợ luôn khỏe mạnh, tươi cười và luôn được yêu thương!"
+      ],
+      "Chị": [
+        "Chúc Chị gái tuyệt vời của em có một ngày 20/10 thật rực rỡ, xinh đẹp và ngập tràn hạnh phúc!\n\nChúc Chị luôn tự tin, duyên dáng, sự nghiệp thăng tiến không ngừng và sớm hoàn thành mọi mục tiêu lớn nhé. Nhận được thật nhiều hoa và quà hôm nay nha!",
+        "Nhân ngày 20/10, chúc Chị mãi mãi trẻ đẹp, rạng ngời và yêu đời!\n\nCảm ơn Chị vì đã luôn đồng hành, chia sẻ và yêu thương em. Chúc Chị mỗi ngày đều là một ngày vui trọn vẹn và an nhiên!"
+      ],
+      "Em": [
+        "Chúc Em gái đáng yêu ngày 20/10 thật ngọt ngào, rạng rỡ và luôn tươi cười như hoa hướng dương!\n\nChúc Em học tập/công tác thật tốt, luôn xinh xắn, tự tin, yêu đời và đạt được những ước mơ mà mình ấp ủ nhé. Happy Vietnamese Women's Day!",
+        "Gửi Em gái thân yêu nhân ngày 20/10!\nChúc Em luôn giữ được nét duyên dáng, hồn nhiên, nụ cười tỏa nắng và gặp thật nhiều may mắn trong cuộc sống. Chúc Em có một ngày 20/10 ngập tràn quà và niềm vui!"
+      ],
+      "Bạn": [
+        "Happy 20/10 nhé bạn yêu! 🌸\n\nChúc cậu luôn xinh đẹp, tự tin và rạng rỡ như những đóa hoa mùa xuân. Mong cậu được yêu thương thật nhiều, công việc/học tập suôn sẻ và mỗi ngày trôi qua đều là một ngày thật đáng nhớ. Cảm ơn cậu vì đã luôn ở bên mình!",
+        "Nhân ngày Phụ Nữ Việt Nam 20/10, chúc cô bạn tuyệt vời của tớ luôn khỏe mạnh, hạnh phúc và tràn đầy năng lượng!\n\nChúc cậu gặt hái thật nhiều thành công, nhận được thật nhiều hoa, quà và những điều bất ngờ dễ thương. Cậu xứng đáng với tất cả những điều tốt đẹp nhất trên đời!",
+        "Gửi người bạn thân yêu của tớ,\nHôm nay là ngày của những cô gái tuyệt vời nhất, và cậu chính là một trong số đó! Chúc cậu luôn vui vẻ, bình yên, mãi trẻ đẹp và sống thật rực rỡ theo cách riêng của mình. Thương cậu nhiều lắm! 💐",
+        "20/10 rồi, chúc bạn hiền một ngày thật ngọt ngào nha!\n\nChúc cậu luôn xinh tươi, dịu dàng mà vẫn mạnh mẽ, có thật nhiều tiền, thật nhiều niềm vui và không bao giờ phải buồn phiền. Mình cùng nhau già đi thật vui vẻ nhé! 😘"
+      ]
+    };
+
+    // ============ 2. LOGIC ĐIỀU KHIỂN ============
+    let selectedRole = "Mẹ";
+    let recipientName = "";
+    let currentWishIndex = 0;
+
+    const roleButtons = document.querySelectorAll('.role-btn');
+    const roleLabel = document.getElementById('currentRoleLabel');
+    const nameInput = document.getElementById('recipientName');
+
+    roleButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        roleButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedRole = btn.getAttribute('data-role');
+        roleLabel.textContent = selectedRole;
+        nameInput.placeholder = `Nhập tên của ${selectedRole}`;
+      });
+    });
+
+    function startCardFlow() {
+      const inputVal = nameInput.value.trim();
+      recipientName = inputVal ? inputVal : (selectedRole === 'Bạn' ? 'Bạn Yêu Quý' : `${selectedRole} Yêu Quý`);
+
+      document.getElementById('setupScreen').style.display = 'none';
+      document.getElementById('envelopeScreen').style.display = 'block';
+
+      // Nhấp chuột là cử chỉ người dùng -> trình duyệt cho phép phát nhạc
+      initAudio();
+    }
+
+    function openEnvelope() {
+      const flap = document.getElementById('envelopeFlap');
+      flap.classList.add('open');
+
+      if (!isMusicPlaying) startMusic();
+
+      triggerFloralExplosion();
+
+      setTimeout(() => {
+        document.getElementById('envelopeScreen').style.display = 'none';
+        setupCardContent();
+        document.getElementById('greetingCard').style.display = 'block';
+      }, 700);
+    }
+
+    function setupCardContent() {
+      const casual = ['Chị', 'Em', 'Bạn'].includes(selectedRole);
+      document.getElementById('cardRoleText').textContent = casual ? `Chúc ${selectedRole}` : `Kính chúc ${selectedRole}`;
+      document.getElementById('cardNameText').textContent = recipientName;
+
+      currentWishIndex = 0;
+      displayCurrentWish();
+
+      const sig = document.getElementById('signatureText');
+      if (selectedRole === 'Bà' || selectedRole === 'Mẹ') {
+        sig.textContent = "20/10 vui vẻ nhé ";
+      } else if (['Bác', 'Cô', 'Dì', 'Mợ'].includes(selectedRole)) {
+        sig.textContent = "~ 20/10 vui vẻ ạ ~";
+      } else if (selectedRole === 'Bạn') {
+        sig.textContent = "~ 20/10 vui vẻ nha bạn ơi ~";
+      } else {
+        sig.textContent = "~ 20/10 vui vẻ ~";
+      }
+    }
+
+    function displayCurrentWish() {
+      const wishes = WISH_DATA[selectedRole] || WISH_DATA["Mẹ"];
+      const textElem = document.getElementById('wishTextContent');
+      textElem.style.opacity = 0;
+      setTimeout(() => {
+        textElem.textContent = wishes[currentWishIndex % wishes.length];
+        textElem.style.opacity = 1;
+      }, 200);
+    }
+
+    function randomNextWish() {
+      const wishes = WISH_DATA[selectedRole] || WISH_DATA["Mẹ"];
+      currentWishIndex = (currentWishIndex + 1) % wishes.length;
+      displayCurrentWish();
+      showToast("✨ Đã đổi sang lời chúc khác!");
+    }
+
+    function copyWish() {
+      const wish = document.getElementById('wishTextContent').textContent;
+      const fullText = `💌 Lời chúc 20/10 dành tặng ${selectedRole} ${recipientName}:\n\n"${wish}"\n\n💐 Chúc ngày Phụ Nữ Việt Nam 20/10 ngập tràn niềm vui và hạnh phúc!`;
+
+      const fallbackCopy = () => {
+        const ta = document.createElement('textarea');
+        ta.value = fullText;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        showToast(ok ? "📋 Đã sao chép lời chúc vào khay nhớ tạm!" : "Lỗi khi sao chép, bạn hãy bôi đen để copy nhé!");
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(fullText)
+          .then(() => showToast("📋 Đã sao chép lời chúc vào khay nhớ tạm!"))
+          .catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+    }
+
+    function resetToHome() {
+      document.getElementById('greetingCard').style.display = 'none';
+      document.getElementById('envelopeScreen').style.display = 'none';
+      document.getElementById('envelopeFlap').classList.remove('open');
+      document.getElementById('setupScreen').style.display = 'block';
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // ============ 3. NHẠC NỀN (tạo trực tiếp bằng Web Audio, không cần file/link ngoài) ============
+    // Giai điệu piano nhẹ nhàng, tự sáng tác: C – Am – F – G
+    let audioCtx = null;
+    let masterGain = null;
+    let schedulerTimer = null;
+    let isMusicPlaying = false;
+    let nextNoteTime = 0;
+    let stepIndex = 0;
+
+    const BPM = 70;
+    const EIGHTH = 60 / BPM / 2;
+
+    const midiToFreq = m => 440 * Math.pow(2, (m - 69) / 12);
+
+    // Hợp âm: [bass, n0, n1, n2, n3]
+    const CHORDS = {
+      C:  [36, 60, 64, 67, 72],
+      Am: [33, 57, 60, 64, 69],
+      F:  [29, 53, 57, 60, 65],
+      G:  [31, 55, 59, 62, 67]
+    };
+    const ARP_PATTERN = [1, 2, 3, 4, 3, 2, 3, 2];
+
+    // 8 ô nhịp: mỗi ô nhịp = hợp âm + giai điệu [vị trí (nốt 1/8), MIDI, độ dài]
+    const SONG = [
+      { chord: 'C',  melody: [[0,76,2],[2,74,1],[3,72,1],[4,79,4]] },
+      { chord: 'Am', melody: [[0,76,2],[2,72,2],[4,81,2],[6,76,2]] },
+      { chord: 'F',  melody: [[0,77,2],[2,76,1],[3,74,1],[4,72,4]] },
+      { chord: 'G',  melody: [[0,74,2],[2,76,2],[4,79,4]] },
+      { chord: 'C',  melody: [[0,79,2],[2,76,2],[4,84,4]] },
+      { chord: 'Am', melody: [[0,81,2],[2,79,1],[3,76,1],[4,72,4]] },
+      { chord: 'F',  melody: [[0,77,4],[4,81,2],[6,77,2]] },
+      { chord: 'G',  melody: [[0,79,2],[2,74,2],[4,71,4]] }
+    ];
+
+    function initAudio() {
+      if (audioCtx) return;
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      audioCtx = new AC();
+
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = 0;
+
+      // Hiệu ứng vang nhẹ (echo) cho âm thanh ấm hơn
+      const delay = audioCtx.createDelay(1.0);
+      delay.delayTime.value = EIGHTH * 3;
+      const feedback = audioCtx.createGain();
+      feedback.gain.value = 0.28;
+      const wet = audioCtx.createGain();
+      wet.gain.value = 0.35;
+
+      masterGain.connect(audioCtx.destination);
+      masterGain.connect(delay);
+      delay.connect(feedback);
+      feedback.connect(delay);
+      delay.connect(wet);
+      wet.connect(audioCtx.destination);
+
+      // Mở khóa âm thanh trên iOS/Safari
+      const buf = audioCtx.createBuffer(1, 1, 22050);
+      const src = audioCtx.createBufferSource();
+      src.buffer = buf;
+      src.connect(audioCtx.destination);
+      src.start(0);
+    }
+
+    function playNote(midi, time, dur, vol) {
+      const freq = midiToFreq(midi);
+      const g = audioCtx.createGain();
+      g.gain.setValueAtTime(0.0001, time);
+      g.gain.exponentialRampToValueAtTime(vol, time + 0.012);
+      g.gain.exponentialRampToValueAtTime(vol * 0.35, time + Math.min(dur * 0.4, 0.6));
+      g.gain.exponentialRampToValueAtTime(0.0001, time + dur);
+      g.connect(masterGain);
+
+      // Âm "piano": sóng tam giác + hài âm sine
+      const o1 = audioCtx.createOscillator();
+      o1.type = 'triangle';
+      o1.frequency.value = freq;
+      const o2 = audioCtx.createOscillator();
+      o2.type = 'sine';
+      o2.frequency.value = freq * 2;
+      const g2 = audioCtx.createGain();
+      g2.gain.value = 0.25;
+
+      o1.connect(g);
+      o2.connect(g2);
+      g2.connect(g);
+
+      o1.start(time);
+      o2.start(time);
+      o1.stop(time + dur + 0.05);
+      o2.stop(time + dur + 0.05);
+    }
+
+    function scheduleStep(step, time) {
+      const bar = SONG[Math.floor(step / 8) % SONG.length];
+      const pos = step % 8;
+      const chord = CHORDS[bar.chord];
+
+      // Bè bass ở nhịp đầu ô nhịp
+      if (pos === 0) playNote(chord[0], time, EIGHTH * 7, 0.22);
+      // Arpeggio nền
+      playNote(chord[ARP_PATTERN[pos]], time, EIGHTH * 2.5, 0.09);
+      // Giai điệu chính
+      bar.melody.forEach(([start, midi, len]) => {
+        if (start === pos) playNote(midi, time, EIGHTH * len * 1.1, 0.16);
+      });
+    }
+
+    function scheduler() {
+      while (nextNoteTime < audioCtx.currentTime + 0.35) {
+        scheduleStep(stepIndex, nextNoteTime);
+        nextNoteTime += EIGHTH;
+        stepIndex++;
+      }
+    }
+
+    function setMusicUI(on) {
+      document.getElementById('musicIcon').textContent = on ? '🔊' : '🎵';
+      document.getElementById('musicText').textContent = on ? 'Tắt nhạc' : 'Bật nhạc';
+    }
+
+    function startMusic() {
+      initAudio();
+      if (!audioCtx) {
+        showToast("Trình duyệt không hỗ trợ phát nhạc 😢");
+        return;
+      }
+      audioCtx.resume().then(() => {
+        masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+        masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+        masterGain.gain.linearRampToValueAtTime(0.9, audioCtx.currentTime + 1.2);
+        nextNoteTime = audioCtx.currentTime + 0.1;
+        if (!isMusicPlaying) {
+          stepIndex = 0;
+          schedulerTimer = setInterval(scheduler, 100);
+        }
+        isMusicPlaying = true;
+        setMusicUI(true);
+      });
+    }
+
+    function stopMusic() {
+      if (!audioCtx) return;
+      masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+      masterGain.gain.setValueAtTime(masterGain.gain.value, audioCtx.currentTime);
+      masterGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.5);
+      clearInterval(schedulerTimer);
+      schedulerTimer = null;
+      isMusicPlaying = false;
+      setMusicUI(false);
+    }
+
+    function toggleMusic() {
+      if (isMusicPlaying) stopMusic();
+      else startMusic();
+    }
+
+    // ============ 4. CANVAS: HOA RƠI & NỞ HOA KHI CHẠM ============
+    const canvas = document.getElementById('petals-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let petals = [];
+
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    const flowerPalette = ['#ff758f', '#ff4d6d', '#ff8fa3', '#ffb3c1', '#ffd166', '#ffffff', '#ffcad4'];
+
+    class FlowerItem {
+      constructor(isBurst = false, originX, originY) {
+        this.reset(isBurst, originX, originY);
+      }
+
+      reset(isBurst = false, originX, originY) {
+        this.isBlossom = Math.random() > 0.45;
+        this.size = this.isBlossom ? (12 + Math.random() * 12) : (10 + Math.random() * 14);
+        this.color = flowerPalette[Math.floor(Math.random() * flowerPalette.length)];
+        this.angle = Math.random() * 360;
+        this.angularSpeed = (Math.random() - 0.5) * 2;
+        this.opacity = 0.5 + Math.random() * 0.45;
+
+        if (isBurst) {
+          this.x = originX;
+          this.y = originY;
+          const a = Math.random() * Math.PI * 2;
+          const speed = 2 + Math.random() * 6;
+          this.speedX = Math.cos(a) * speed;
+          this.speedY = Math.sin(a) * speed;
+          this.isTemporary = true;
+        } else {
+          this.x = Math.random() * width;
+          this.y = -20 - Math.random() * 60;
+          this.speedY = 1.3 + Math.random() * 2.2;
+          this.speedX = Math.random() * 1.6 - 0.8;
+          this.isTemporary = false;
+        }
+      }
+
+      update() {
+        if (this.isTemporary) {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          this.speedY += 0.08;
+          this.opacity -= 0.015;
+        } else {
+          this.y += this.speedY;
+          this.x += Math.sin(this.angle * Math.PI / 180) * 1.2 + this.speedX;
+          this.angle += this.angularSpeed;
+
+          if (this.y > height + 30 || this.x < -30 || this.x > width + 30) {
+            this.reset();
+          }
+        }
+      }
+
+      draw() {
+        if (this.opacity <= 0) return;
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.angle * Math.PI / 180);
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = Math.max(0, this.opacity);
+
+        if (this.isBlossom) {
+          for (let i = 0; i < 5; i++) {
+            ctx.rotate((Math.PI * 2) / 5);
+            ctx.beginPath();
+            ctx.arc(0, this.size * 0.45, this.size * 0.35, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.beginPath();
+          ctx.fillStyle = '#ffd166';
+          ctx.arc(0, 0, this.size * 0.22, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size, 0, 0, this.size);
+          ctx.bezierCurveTo(-this.size, 0, -this.size / 2, -this.size / 2, 0, 0);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < 75; i++) {
+      const f = new FlowerItem();
+      f.y = Math.random() * height;
+      petals.push(f);
+    }
+
+    function animatePetals() {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = petals.length - 1; i >= 0; i--) {
+        const p = petals[i];
+        p.update();
+        p.draw();
+        if (p.isTemporary && p.opacity <= 0) {
+          petals.splice(i, 1);
+        }
+      }
+
+      requestAnimationFrame(animatePetals);
+    }
+    animatePetals();
+
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('button, input')) return;
+      for (let i = 0; i < 16; i++) {
+        petals.push(new FlowerItem(true, e.clientX, e.clientY));
+      }
+    });
+
+    function triggerFloralExplosion() {
+      for (let i = 0; i < 40; i++) {
+        petals.push(new FlowerItem(true, width / 2, height / 2));
+      }
+    }
+
+    // ============ 5. GẮN SỰ KIỆN CHO CÁC NÚT ============
+    document.getElementById('musicToggleBtn').addEventListener('click', toggleMusic);
+    document.getElementById('startBtn').addEventListener('click', startCardFlow);
+    document.getElementById('envelopeBox').addEventListener('click', openEnvelope);
+    document.getElementById('nextWishBtn').addEventListener('click', randomNextWish);
+    document.getElementById('copyBtn').addEventListener('click', copyWish);
+    document.getElementById('resetBtn').addEventListener('click', resetToHome);
+  </script>
+</body>
+</html>
